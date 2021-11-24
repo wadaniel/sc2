@@ -5,6 +5,7 @@ import numpy as np
 def main():
     env = StarCraft2Env(map_name="8m")
     env_info = env.get_env_info()
+    print(env_info)
 
     n_actions = env_info["n_actions"]
     n_agents = env_info["n_agents"]
@@ -31,7 +32,6 @@ def main():
                 action = np.random.choice(avail_actions_ind)
                 actions.append(action)
 
-            print(actions)
             reward, terminated, _ = env.step(actions)
             episode_reward += reward
 

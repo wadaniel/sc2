@@ -13,6 +13,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--env', help='Specifies the starctaft map.', required=True)
 parser.add_argument('--l2', help='L2 Regularization.', required=False, type=float, default = 0.)
 parser.add_argument('--lr', help='Learning Rate.', required=False, type=float, default = 0.0001)
+parser.add_argument('--exp', help='Max experiences', required=True, type=int, default = 10e6)
 parser.add_argument('--run', help='Run Number', required=True, type=int, default = 0)
 parser.add_argument('--multpolicies', help='If set to 1, train with N policies', required=False, type=int, default = 0)
 parser.add_argument('--model', help='Model Number', required=True, type=int)
@@ -112,7 +113,7 @@ e["Solver"]["Neural Network"]["Hidden Layers"][3]["Function"] = "Elementwise/Tan
 
 ### Setting file output configuration
 
-e["Solver"]["Termination Criteria"]["Max Experiences"] = 10e6 
+e["Solver"]["Termination Criteria"]["Max Experiences"] = args.exp
 e["Solver"]["Experience Replay"]["Serialize"] = True
 e["Console Output"]["Verbosity"] = "Detailed"
 e["File Output"]["Enabled"] = True

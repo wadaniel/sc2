@@ -6,8 +6,9 @@ import math
 
 def initEnvironment(e, mapName, multPolicies):
  
-  env = StarCraft2Env(map_name="3m")
+  env = StarCraft2Env(map_name=mapName)
   env_info = env.get_env_info()
+  print(env_info)
 
   actionVariableCount = 1
   numPossibleActions = env_info["n_actions"]
