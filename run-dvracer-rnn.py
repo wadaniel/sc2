@@ -35,7 +35,7 @@ e = korali.Experiment()
 
 ### Defining results folder and loading previous results, if any
 
-resultFolder = 'results/_result_dvracer_' + args.env + '_' + str(args.model) + '_' + str(args.run) +'/'
+resultFolder = 'results/_result_dvracer_gru_' + args.env + '_' + str(args.model) + '_' + str(args.run) +'/'
 #e.loadState(resultFolder + '/latest');
 
 ### Initializing openAI Gym environment
@@ -97,17 +97,9 @@ e["Solver"]['Neural Network']['Optimizer'] = "Adam"
 e["Solver"]["L2 Regularization"]["Enabled"] = args.l2 > 0.
 e["Solver"]["L2 Regularization"]["Importance"] = args.l2
 
-e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Linear"
-e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 256
-
-e["Solver"]["Neural Network"]["Hidden Layers"][1]["Type"] = "Layer/Activation"
-e["Solver"]["Neural Network"]["Hidden Layers"][1]["Function"] = "Elementwise/Tanh"
-
-e["Solver"]["Neural Network"]["Hidden Layers"][2]["Type"] = "Layer/Linear"
-e["Solver"]["Neural Network"]["Hidden Layers"][2]["Output Channels"] = 256
-
-e["Solver"]["Neural Network"]["Hidden Layers"][3]["Type"] = "Layer/Activation"
-e["Solver"]["Neural Network"]["Hidden Layers"][3]["Function"] = "Elementwise/Tanh"
+e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Recurrent/GRU"
+e["Solver"]["Neural Network"]["Hidden Layers"][0]["Depth"] = 1
+e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 64
 
 ### Setting file output configuration
 
