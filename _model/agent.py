@@ -24,13 +24,9 @@ def initEnvironment(e, mapName, multPolicies):
   print(observationVariableCount)
 
   ### Defining problem configuration for pettingZoo environments
-  e["Problem"]["Type"] = "Reinforcement Learning / Discrete"
   e["Problem"]["Environment Function"] = lambda s : environment(s, env)
-  e["Problem"]["Custom Settings"]["Print Step Information"] = "Disabled"
   e["Problem"]["Training Reward Threshold"] = math.inf
   e["Problem"]["Possible Actions"] = possibleActions
-  e["Problem"]["Testing Frequency"] = 100
-  e["Problem"]["Policy Testing Episodes"] = 10
   e["Problem"]["Agents Per Environment"] = numIndividuals
   if (multPolicies == 1) :
       e["Problem"]["Policies Per Environment"] = numIndividuals

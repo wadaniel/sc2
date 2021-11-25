@@ -41,7 +41,11 @@ resultFolder = 'results/_result_dvracer_' + args.env + '_' + str(args.model) + '
 ### Initializing openAI Gym environment
 
 initEnvironment(e, args.env, args.multpolicies)
-
+ 
+e["Problem"]["Type"] = "Reinforcement Learning / Discrete"
+e["Problem"]["Testing Frequency"] = 200
+e["Problem"]["Policy Testing Episodes"] = 20
+ 
 ### Defining Agent Configuration 
 
 e["Solver"]["Type"] = "Agent / Discrete / dVRACER"
@@ -87,18 +91,13 @@ e["Solver"]["State Rescaling"]["Enabled"] = True
 e["Solver"]["Reward"]["Rescaling"]["Enabled"] = True
   
 ### Configuring the neural network and its hidden layers
-## TODO: try RNN
 
 e["Solver"]["Neural Network"]["Engine"] = "OneDNN"
 e["Solver"]['Neural Network']['Optimizer'] = "Adam"
 e["Solver"]["L2 Regularization"]["Enabled"] = args.l2 > 0.
 e["Solver"]["L2 Regularization"]["Importance"] = args.l2
 
-
-#e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Recurrent/GRU"
-#e["Solver"]["Neural Network"]["Hidden Layers"][0]["Depth"] = 1
-#e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 64
-
+## TODO: try RNN
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Linear"
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 256
 
