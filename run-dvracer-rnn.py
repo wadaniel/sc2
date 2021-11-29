@@ -57,6 +57,7 @@ e["Solver"]["Experiences Between Policy Updates"] = 1
 e["Solver"]["Initial Inverse Temperature"] = 1
 e["Solver"]["Learning Rate"] = args.lr
 e["Solver"]["Discount Factor"] = 0.995
+e["Solver"]["Mini Batch"]["Size"] = 256
 e["Solver"]["Multi Agent Relationship"] = 'Individual'
 e["Solver"]["Multi Agent Correlation"] = False
 e["Solver"]["Strong Truncation Variant"] = True
@@ -82,7 +83,7 @@ elif(args.model == 5):
 
 ### Setting Experience Replay and REFER settings
 
-e["Solver"]["Experience Replay"]["Start Size"] = 8192
+e["Solver"]["Experience Replay"]["Start Size"] = 4096
 e["Solver"]["Experience Replay"]["Maximum Size"] = 262144
 e["Solver"]["Experience Replay"]["Off Policy"]["Annealing Rate"] = 5.0e-8
 e["Solver"]["Experience Replay"]["Off Policy"]["Cutoff Scale"] = 4.0 # test
@@ -99,7 +100,7 @@ e["Solver"]['Neural Network']['Optimizer'] = "Adam"
 e["Solver"]["L2 Regularization"]["Enabled"] = args.l2 > 0.
 e["Solver"]["L2 Regularization"]["Importance"] = args.l2
 
-e["Solver"]['Time Sequence Length'] = 1
+e["Solver"]['Time Sequence Length'] = 2
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Recurrent/{}".format(args.rnn)
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Depth"] = 1
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 64

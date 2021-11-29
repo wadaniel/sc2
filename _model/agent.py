@@ -45,7 +45,7 @@ def initEnvironment(e, mapName, multPolicies):
     e["Variables"][observationVariableCount + i]["Type"] = "Action"
 
   # Adjust Bacth Size  
-  e["Solver"]["Mini Batch"]["Size"] = int(256 / numIndividuals)
+  # e["Solver"]["Mini Batch"]["Size"] = int(256 / numIndividuals)
 
 def getAvailableActions(nAgents, env):
     availableActions = []
