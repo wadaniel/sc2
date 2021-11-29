@@ -8,7 +8,6 @@ import pdb
 
 ####### Parsing arguments
 
-os.environ["SDL_VIDEODRIVER"] = "dummy"
 parser = argparse.ArgumentParser()
 parser.add_argument('--env', help='Specifies the starctaft map.', required=True)
 parser.add_argument('--l2', help='L2 Regularization.', required=False, type=float, default = 0.)
@@ -43,14 +42,16 @@ resultFolder = 'results/_result_dvracer_' + args.env + '_' + str(args.model) + '
 initEnvironment(e, args.env, args.multpolicies)
  
 e["Problem"]["Type"] = "Reinforcement Learning / Discrete"
-e["Problem"]["Testing Frequency"] = 200
-e["Problem"]["Policy Testing Episodes"] = 20
+e["Problem"]["Testing Frequency"] = 10
+e["Problem"]["Policy Testing Episodes"] = 2 # == 10 * 2
+e["Problem"]["Custom Settings"]["Result Folder"] = resultFolder
  
 ### Defining Agent Configuration 
 
 e["Solver"]["Type"] = "Agent / Discrete / dVRACER"
 e["Solver"]["Mode"] = "Training"
 e["Solver"]["Episodes Per Generation"] = 10
+e["Solver"]["Initial Inverse Temperature"] = 1
 e["Solver"]["Experiences Between Policy Updates"] = 1
 e["Solver"]["Learning Rate"] = args.lr
 e["Solver"]["Discount Factor"] = 0.995
@@ -80,7 +81,7 @@ elif(args.model == 5):
 
 ### Setting Experience Replay and REFER settings
 
-e["Solver"]["Experience Replay"]["Start Size"] = 16384
+e["Solver"]["Experience Replay"]["Start Size"] = 8192
 e["Solver"]["Experience Replay"]["Maximum Size"] = 262144
 e["Solver"]["Experience Replay"]["Off Policy"]["Annealing Rate"] = 5.0e-8
 e["Solver"]["Experience Replay"]["Off Policy"]["Cutoff Scale"] = 4.0
@@ -115,7 +116,7 @@ e["Solver"]["Termination Criteria"]["Max Experiences"] = args.exp
 e["Solver"]["Experience Replay"]["Serialize"] = True
 e["Console Output"]["Verbosity"] = "Detailed"
 e["File Output"]["Enabled"] = True
-e["File Output"]["Frequency"] = 500
+e["File Output"]["Frequency"] = 250
 e["File Output"]["Path"] = resultFolder
 
 ### Running Experiment

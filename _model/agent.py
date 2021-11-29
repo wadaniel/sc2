@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from smac.env import StarCraft2Env
+import os.path
 import numpy as np
 import math
 
@@ -43,6 +44,9 @@ def initEnvironment(e, mapName, multPolicies):
     e["Variables"][observationVariableCount + i]["Name"] = "Action Variable " + str(i)
     e["Variables"][observationVariableCount + i]["Type"] = "Action"
 
+  # Adjust Bacth Size  
+  e["Solver"]["Mini Batch"]["Size"] = int(256 / numIndividuals)
+
 def getAvailableActions(nAgents, env):
     availableActions = []
     for agentId in range(nAgents):
@@ -78,7 +82,6 @@ def environment(s, env):
  
         obs = env.get_obs()
         obs = [ o.tolist() for o in obs ]
-        #state = env.get_state()
         s["Reward"] = [ reward ] * nAgents
  
         s["State"] = obs
@@ -89,6 +92,26 @@ def environment(s, env):
     s["Termination"] = "Terminal"
     print("Total reward after {} steps : {}".format(step, episodeReward))
     
-    #if s["Mode"] == "Testing":
-    #env.close()
+    if s["Mode"] == "Testing":
+        win = True if episodeReward > 19.999 else False
+        sampleId = s["Sample Id"]
+        print(sampleId, flush=True)
+        resDir = s["Custom Settings"]["Result Folder"]
+        winHistFile = resDir + 'winStat.npz'
 
+        history = None
+        sampleHistory = None
+        if os.path.isfile(winHistFile):
+            winStat = np.load(winHistFile)
+           
+            sampleHistory = winStat['sampleHistory']
+            sampleHistory = np.append(sampleHistory, sampleId)
+
+            history = winStat['history']
+            history = np.append(history, win)
+ 
+        else:
+            sampleHistory = [ sampleId ]
+            history = [win]
+
+        np.savez(winHistFile, sampleHistory = sampleHistory, history = history)
