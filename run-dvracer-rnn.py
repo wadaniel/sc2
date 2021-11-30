@@ -101,9 +101,13 @@ e["Solver"]["L2 Regularization"]["Enabled"] = args.l2 > 0.
 e["Solver"]["L2 Regularization"]["Importance"] = args.l2
 
 e["Solver"]['Time Sequence Length'] = 2
-e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Recurrent/{}".format(args.rnn)
-e["Solver"]["Neural Network"]["Hidden Layers"][0]["Depth"] = 1
+
+e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Linear"
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 64
+
+e["Solver"]["Neural Network"]["Hidden Layers"][1]["Type"] = "Layer/Recurrent/{}".format(args.rnn)
+e["Solver"]["Neural Network"]["Hidden Layers"][1]["Depth"] = 1
+e["Solver"]["Neural Network"]["Hidden Layers"][1]["Output Channels"] = 64
 
 ### Setting file output configuration
 
