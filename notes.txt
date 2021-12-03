@@ -1,0 +1,15 @@
+# Run 4
+-excluded training invTemperature
+-comparing 4 runs, 2 envs with GRU vs FFN
+
+# Run 9
+- included training invTemperature
+- investigate NaN / crash
+- 2 run, GRU vs FFN (6h_vs_8z)
+
+# Finding
+invTemperature helped in run 9, as well as GRU, no crashes
+
+# Run 10
+- included training invTemperature
+- 2 run, GRU (6mvs8m, 6h_vs_8z)

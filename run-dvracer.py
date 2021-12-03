@@ -12,8 +12,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--env', help='Specifies the starctaft map.', required=True)
 parser.add_argument('--l2', help='L2 Regularization.', required=False, type=float, default = 0.)
 parser.add_argument('--lr', help='Learning Rate.', required=False, type=float, default = 0.0001)
-parser.add_argument('--exp', help='Max experiences', required=True, type=int, default = 10e6)
-parser.add_argument('--run', help='Run Number', required=True, type=int, default = 0)
+parser.add_argument('--exp', help='Max experiences', required=False, type=int, default = 2e6)
+parser.add_argument('--run', help='Run Number', required=True, type=int)
 parser.add_argument('--multpolicies', help='If set to 1, train with N policies', required=False, type=int, default = 0)
 parser.add_argument('--model', help='Model Number', required=True, type=int)
 #model '0' or '' weakly Dependent Individualist 
@@ -35,7 +35,7 @@ e = korali.Experiment()
 ### Defining results folder and loading previous results, if any
 
 resultFolder = 'results/_result_dvracer_' + args.env + '_' + str(args.model) + '_' + str(args.run) +'/'
-#e.loadState(resultFolder + '/latest');
+e.loadState(resultFolder + '/latest');
 
 ### Initializing openAI Gym environment
 

@@ -14,7 +14,8 @@ parser.add_argument('--env', help='Specifies the starctaft map.', required=True)
 parser.add_argument('--l2', help='L2 Regularization.', required=False, type=float, default = 0.)
 parser.add_argument('--lr', help='Learning Rate.', required=False, type=float, default = 0.0001)
 parser.add_argument('--rnn', help='RNN typr (GRU or LSTM).', required=False, type=str, default = 'GRU')
-parser.add_argument('--exp', help='Max experiences', required=True, type=int, default = 10e6)
+parser.add_argument('--ia', help='Include Action', action='store_true')
+parser.add_argument('--exp', help='Max experiences', required=False, type=int, default = 2e6)
 parser.add_argument('--run', help='Run Number', required=True, type=int, default = 0)
 parser.add_argument('--multpolicies', help='If set to 1, train with N policies', required=False, type=int, default = 0)
 parser.add_argument('--model', help='Model Number', required=True, type=int)
@@ -37,7 +38,7 @@ e = korali.Experiment()
 ### Defining results folder and loading previous results, if any
 
 resultFolder = 'results/_result_dvracer_' + args.rnn +'_' + args.env + '_' + str(args.model) + '_' + str(args.run) +'/'
-#e.loadState(resultFolder + '/latest');
+e.loadState(resultFolder + '/latest');
 
 ### Initializing openAI Gym environment
 
@@ -100,7 +101,7 @@ e["Solver"]['Neural Network']['Optimizer'] = "Adam"
 e["Solver"]["L2 Regularization"]["Enabled"] = args.l2 > 0.
 e["Solver"]["L2 Regularization"]["Importance"] = args.l2
 
-e["Solver"]['Time Sequence Length'] = 2
+e["Solver"]['Time Sequence Length'] = 20
 
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Linear"
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 64

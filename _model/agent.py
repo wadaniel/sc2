@@ -5,6 +5,7 @@ import os.path
 import numpy as np
 import math
 
+### Environment specific korali configuratoin
 def initEnvironment(e, mapName, multPolicies):
  
   env = StarCraft2Env(map_name=mapName)
@@ -24,9 +25,8 @@ def initEnvironment(e, mapName, multPolicies):
   print(stateVariableCount)
   print(observationVariableCount)
 
-  ### Defining problem configuration for pettingZoo environments
+  # Defining problem configuration for pettingZoo environments
   e["Problem"]["Environment Function"] = lambda s : environment(s, env)
-  e["Problem"]["Training Reward Threshold"] = math.inf
   e["Problem"]["Possible Actions"] = possibleActions
   e["Problem"]["Agents Per Environment"] = numIndividuals
   if (multPolicies == 1) :
@@ -47,6 +47,7 @@ def initEnvironment(e, mapName, multPolicies):
   # Adjust Bacth Size  
   # e["Solver"]["Mini Batch"]["Size"] = int(256 / numIndividuals)
 
+# Helper function to extract available actions
 def getAvailableActions(nAgents, env):
     availableActions = []
     for agentId in range(nAgents):
@@ -54,6 +55,7 @@ def getAvailableActions(nAgents, env):
 
     return availableActions
 
+### The Environment
 def environment(s, env):
         
     env.reset()
@@ -65,7 +67,6 @@ def environment(s, env):
  
     obs = env.get_obs()
     obs = [ o.tolist() for o in obs ]
-    #state = env.get_state()
 
     s["State"] = obs
     s["Available Actions"] = getAvailableActions(nAgents, env)
@@ -90,28 +91,28 @@ def environment(s, env):
  
     
     s["Termination"] = "Terminal"
-    print("Total reward after {} steps : {}".format(step, episodeReward))
     
     if s["Mode"] == "Testing":
-        win = True if episodeReward > 19.999 else False
+        print("Testing episode reward after {} steps: {}".format(step, episodeReward))
         sampleId = s["Sample Id"]
-        print(sampleId, flush=True)
         resDir = s["Custom Settings"]["Result Folder"]
-        winHistFile = resDir + 'winStat.npz'
+        testingHistFile = resDir + 'testingRewardHistory.npz'
 
         history = None
         sampleHistory = None
-        if os.path.isfile(winHistFile):
-            winStat = np.load(winHistFile)
+        if os.path.isfile(testingHistFile):
+            # Append results
+            testingStat = np.load(testingHistFile)
            
-            sampleHistory = winStat['sampleHistory']
+            sampleHistory = testingStat['sampleHistory']
             sampleHistory = np.append(sampleHistory, sampleId)
 
-            history = winStat['history']
-            history = np.append(history, win)
+            rewardHistory = testingStat['rewardHistory']
+            rewardHistory = np.append(rewardHistory, episodeReward)
  
         else:
+            # Init
             sampleHistory = [ sampleId ]
-            history = [win]
+            rewardHistory = [ episodeReward ]
 
-        np.savez(winHistFile, sampleHistory = sampleHistory, history = history)
+        np.savez(testingHistFile, sampleHistory = sampleHistory, rewardHistory = rewardHistory)
