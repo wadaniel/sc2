@@ -13,3 +13,19 @@ invTemperature helped in run 9, as well as GRU, no crashes
 # Run 10
 - included training invTemperature
 - 2 run, GRU (6mvs8m, 6h_vs_8z)
+
+# Added some runs with ts 20
+# Run 10
+
+# Finding
+training much slower,
+
+# Run 11
+- 1 run, FFN 6h_vs_8z
+- check impact multi agent correlation (mode 1)
+- check impact cooperation (mode 3)
+- check impact cooperation w multi agent correlation (mode 4)
+
+# Finding
+mode 1 stabilizes learning, mode 3 TODO, mode 4 TODO
+

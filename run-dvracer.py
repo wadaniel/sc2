@@ -12,10 +12,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--env', help='Specifies the starctaft map.', required=True)
 parser.add_argument('--l2', help='L2 Regularization.', required=False, type=float, default = 0.)
 parser.add_argument('--lr', help='Learning Rate.', required=False, type=float, default = 0.0001)
-parser.add_argument('--exp', help='Max experiences', required=False, type=int, default = 2e6)
-parser.add_argument('--run', help='Run Number', required=True, type=int)
 parser.add_argument('--multpolicies', help='If set to 1, train with N policies', required=False, type=int, default = 0)
 parser.add_argument('--model', help='Model Number', required=True, type=int)
+parser.add_argument('--exp', help='Max experiences', required=False, type=int, default = 2e6)
+parser.add_argument('--run', help='Run Number', required=True, type=int)
 #model '0' or '' weakly Dependent Individualist 
 #model '1' strongly Dependent Individualist I 
 #model '2' strongly Dependent Individualist II 
@@ -56,28 +56,30 @@ e["Solver"]["Experiences Between Policy Updates"] = 1
 e["Solver"]["Learning Rate"] = args.lr
 e["Solver"]["Discount Factor"] = 0.995
 e["Solver"]["Mini Batch"]["Size"] = 256
-e["Solver"]["Multi Agent Relationship"] = 'Individual'
-e["Solver"]["Multi Agent Correlation"] = False
-e["Solver"]["Strong Truncation Variant"] = True
 
-if(args.model == 1):
-	e["Solver"]["Multi Agent Correlation"] = True
+if(args.model == 0):
+    e["Solver"]["Multi Agent Relationship"] = 'Individual'
+
+elif(args.model == 1):
+    e["Solver"]["Multi Agent Relationship"] = 'Individual'
+    e["Solver"]["Multi Agent Correlation"] = True
 
 elif(args.model == 2):
-	e["Solver"]["Multi Agent Correlation"] = True
-	e["Solver"]["Strong Truncation Variant"] = False
+    e["Solver"]["Multi Agent Relationship"] = 'Individual'
+    e["Solver"]["Multi Agent Correlation"] = True
+    e["Solver"]["Strong Truncation Variant"] = False
 
 elif(args.model == 3):
-	e["Solver"]["Multi Agent Relationship"] = 'Cooperation'
+    e["Solver"]["Multi Agent Relationship"] = 'Cooperation'
 
 elif(args.model == 4):
-	e["Solver"]["Multi Agent Relationship"] = 'Cooperation'
-	e["Solver"]["Multi Agent Correlation"] = True
+    e["Solver"]["Multi Agent Relationship"] = 'Cooperation'
+    e["Solver"]["Multi Agent Correlation"] = True
 
 elif(args.model == 5):
-	e["Solver"]["Multi Agent Relationship"] = 'Cooperation'
-	e["Solver"]["Multi Agent Correlation"] = True
-	e["Solver"]["Strong Truncation Variant"] = False
+    e["Solver"]["Multi Agent Relationship"] = 'Cooperation'
+    e["Solver"]["Multi Agent Correlation"] = True
+    e["Solver"]["Strong Truncation Variant"] = False
 
 ### Setting Experience Replay and REFER settings
 

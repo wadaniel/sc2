@@ -51,7 +51,7 @@ def initEnvironment(e, mapName, multPolicies):
 def getAvailableActions(nAgents, env):
     availableActions = []
     for agentId in range(nAgents):
-        availableActions.append(list(map(bool,env.get_avail_agent_actions(agentId))))
+        availableActions.append(env.get_avail_agent_actions(agentId))
 
     return availableActions
 
