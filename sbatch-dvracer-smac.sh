@@ -18,8 +18,8 @@ cd $RUNPATH
 cat > run.sbatch <<EOF
 #!/bin/bash -l
 #SBATCH --job-name=smac_${ENV}
-#SBATCH --output=smac_${ENV}_%j.out
-#SBATCH --error=smac_${ENV}_err_%j.out
+#SBATCH --output=smac_${ENV}_${MODEL}_${RUN}_%j.out
+#SBATCH --error=smac_${ENV}_${MODEL}_${RUN}_err_%j.out
 #SBATCH --time=24:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1

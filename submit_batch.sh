@@ -1,9 +1,9 @@
 # Launch continuous envs
-for env in 27m_vs_30m 
+for env in 5m_vs_6m 10m_vs_11m 27m_vs_30m 
 do 
     for model in {0..1}
     do
-        for run in {0..}
+        for run in {0..0}
         do
             export ENV=$env
             export MODEL=$model
