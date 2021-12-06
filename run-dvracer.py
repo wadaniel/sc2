@@ -43,8 +43,8 @@ e.loadState(resultFolder + '/latest');
 initEnvironment(e, args.env, args.multpolicies)
  
 e["Problem"]["Type"] = "Reinforcement Learning / Discrete"
-e["Problem"]["Testing Frequency"] = 10
-e["Problem"]["Policy Testing Episodes"] = 2 # == 10 * 2
+e["Problem"]["Testing Frequency"] = 100
+e["Problem"]["Policy Testing Episodes"] = 20
 e["Problem"]["Custom Settings"]["Result Folder"] = resultFolder
  
 ### Defining Agent Configuration 
