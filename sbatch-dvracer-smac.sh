@@ -30,7 +30,7 @@ cat > run.sbatch <<EOF
 #SBATCH --account=s929
 
 export OMP_NUM_THREADS=\$SLURM_CPUS_PER_TASK
-python3 run-dvracer.py --env "$ENV" --lr $LR --model '$MODEL' --run $RUN 
+python3 run-dvracer.py --env "$ENV" --model '$MODEL' --run $RUN 
 EOF
 
 chmod 755 run.sbatch
