@@ -39,7 +39,7 @@ e = korali.Experiment()
 
 ### Defining results folder and loading previous results, if any
 
-resultFolder = '{}_result_dvracer_{}_{}_{}_{}/'.format(args.dir, args.rnn, args.env, args.model, args.run)
+resultFolder = '{}'.format(args.dir)
 e.loadState(resultFolder + '/latest');
 
 ### Initializing openAI Gym environment
@@ -85,7 +85,7 @@ elif(args.model == 5):
 
 ### Setting Experience Replay and REFER settings
 
-e["Solver"]["Experience Replay"]["Start Size"] = 4096
+e["Solver"]["Experience Replay"]["Start Size"] = 131072
 e["Solver"]["Experience Replay"]["Maximum Size"] = 262144
 e["Solver"]["Experience Replay"]["Off Policy"]["Annealing Rate"] = 5.0e-8
 e["Solver"]["Experience Replay"]["Off Policy"]["Cutoff Scale"] = 4.0 # test
