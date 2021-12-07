@@ -5,7 +5,8 @@
 
 echo "Environment:"         $ENV
 echo "Model:"               $MODEL
-echo "RUN"					$RUN
+echo "RUN:"					$RUN
+echo "NN:"                  FNN
 
 RUNPATH=${SCRATCH}/smac/${ENV}_${MODEL}/${RUN}/
 mkdir -p $RUNPATH

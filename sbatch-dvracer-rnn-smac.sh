@@ -5,7 +5,8 @@
 
 echo "Environment:"         $ENV
 echo "Model:"               $MODEL
-echo "RUN"					$RUN
+echo "RUN:"					$RUN
+echo "NN:"                  GRU
 
 RUNPATH=${SCRATCH}/smac/${ENV}_GRU_${MODEL}/${RUN}/
 mkdir -p $RUNPATH
