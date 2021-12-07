@@ -12,7 +12,7 @@ parser.add_argument('-pte', '--policyTestingEpisodes', help='Episodes Per Genera
 args = parser.parse_args()
 print(args)
 
-testingRollouts = args.policyTestingEpisodes * args.episodesPerGeneration
+testingRollouts = args.policyTestingEpisodes
 winStat = np.load(args.filename)
 sampleHistory = winStat['sampleHistory']
 print(sampleHistory)

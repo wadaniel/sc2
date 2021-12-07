@@ -16,7 +16,8 @@ parser.add_argument('--multpolicies', help='If set to 1, train with N policies',
 parser.add_argument('--model', help='Model Number', required=True, type=int)
 parser.add_argument('--exp', help='Max experiences', required=False, type=int, default = 2e6)
 parser.add_argument('--run', help='Run Number', required=True, type=int)
-parser.add_argument('--dir', help='Result directory', required=False, type=str, default = './results/')
+parser.add_argument('--dir', help='Result directory', required=False, type=str, default = './_results/')
+
 #model '0' or '' weakly Dependent Individualist 
 #model '1' strongly Dependent Individualist I 
 #model '2' strongly Dependent Individualist II 
@@ -35,7 +36,7 @@ e = korali.Experiment()
 
 ### Defining results folder and loading previous results, if any
 
-resultFolder = '{}_result_dvracer_{}_{}_{}/'.format(args.dir, args.env, args.model, args.run)
+resultFolder = '{}'.format(args.dir)
 e.loadState(resultFolder + '/latest');
 
 ### Initializing openAI Gym environment
@@ -84,7 +85,7 @@ elif(args.model == 5):
 
 ### Setting Experience Replay and REFER settings
 
-e["Solver"]["Experience Replay"]["Start Size"] = 4096
+e["Solver"]["Experience Replay"]["Start Size"] = 131072
 e["Solver"]["Experience Replay"]["Maximum Size"] = 262144
 e["Solver"]["Experience Replay"]["Off Policy"]["Annealing Rate"] = 5.0e-8
 e["Solver"]["Experience Replay"]["Off Policy"]["Cutoff Scale"] = 4.0
@@ -102,13 +103,13 @@ e["Solver"]["L2 Regularization"]["Enabled"] = args.l2 > 0.
 e["Solver"]["L2 Regularization"]["Importance"] = args.l2
 
 e["Solver"]["Neural Network"]["Hidden Layers"][0]["Type"] = "Layer/Linear"
-e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 256
+e["Solver"]["Neural Network"]["Hidden Layers"][0]["Output Channels"] = 512
 
 e["Solver"]["Neural Network"]["Hidden Layers"][1]["Type"] = "Layer/Activation"
 e["Solver"]["Neural Network"]["Hidden Layers"][1]["Function"] = "Elementwise/Tanh"
 
 e["Solver"]["Neural Network"]["Hidden Layers"][2]["Type"] = "Layer/Linear"
-e["Solver"]["Neural Network"]["Hidden Layers"][2]["Output Channels"] = 256
+e["Solver"]["Neural Network"]["Hidden Layers"][2]["Output Channels"] = 512
 
 e["Solver"]["Neural Network"]["Hidden Layers"][3]["Type"] = "Layer/Activation"
 e["Solver"]["Neural Network"]["Hidden Layers"][3]["Function"] = "Elementwise/Tanh"

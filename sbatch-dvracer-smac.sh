@@ -7,10 +7,11 @@ echo "Environment:"         $ENV
 echo "Model:"               $MODEL
 echo "RUN"					$RUN
 
-RUNPATH=${SCRATCH}/smac/
+RUNPATH=${SCRATCH}/smac/${ENV}_${MODEL}/${RUN}/
 mkdir -p $RUNPATH
 
 cp run-dvracer.py $RUNPATH
+cp readRewardHist.py $RUNPATH
 cp -r _model/ $RUNPATH
 
 cd $RUNPATH
@@ -30,7 +31,9 @@ cat > run.sbatch <<EOF
 #SBATCH --account=s929
 
 export OMP_NUM_THREADS=\$SLURM_CPUS_PER_TASK
-python3 run-dvracer.py --env "$ENV" --model '$MODEL' --run $RUN 
+python3 run-dvracer.py --env "$ENV" --model "$MODEL" --run $RUN
+python3 koralir.rlview --dir ./_results/ --out dvracer.png
+python3 readRewardHist.py -fn ./_results/testingRewardHistory.npz -pte 20
 EOF
 
 chmod 755 run.sbatch

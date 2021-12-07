@@ -1,20 +1,17 @@
 import argparse
 import numpy as np
-
+import matplotlib.pyplot as plt
 ####### Parsing arguments
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-fn', '--filename', help='File to read.', required=True, type=str)
-parser.add_argument('-tf', '--testingFrequency', help='Testing Frequency as configured in korali app.', required=True, type=int)
-parser.add_argument('-epg', '--episodesPerGeneration', help='Episodes Per Generation as configured in korali app.', required=True, type=int)
 parser.add_argument('-pte', '--policyTestingEpisodes', help='Episodes Per Generation as configured in korali app.', required=True, type=int)
 
 args = parser.parse_args()
-print(args)
 
 winThreshold = 19.99
 
-testingRollouts = args.policyTestingEpisodes * args.episodesPerGeneration
+testingRollouts = args.policyTestingEpisodes
 testStat = np.load(args.filename)
 rewardHistory = testStat['rewardHistory']
 
@@ -25,8 +22,19 @@ assert(len(rewardHistory) % testingRollouts == 0)
 
 rewardHistory = np.reshape(rewardHistory, (-1,testingRollouts))
 winHistory = rewardHistory > winThreshold
-print(rewardHistory)
-print(winHistory)
+
+winProb = np.mean(winHistory, axis=1)
+
+print(len(winProb))
+print(winProb)
+
+fig, ax = plt.subplots()
+ax.plot(winProb, linewidth=2.0)
+ax.set_ylim(0., 1.)
+fig.savefig("winProbabilities.png")
+
+
+
 #winRate = np.mean(rewardHistory, axis=1)
 #winSdev = np.std(rewardHistory, axis=1)
 #print(sampleHistory)
