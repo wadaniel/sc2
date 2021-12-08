@@ -20,7 +20,7 @@ parser.add_argument('--multpolicies', help='If set to 1, train with N policies',
 parser.add_argument('--model', help='Model Number', required=True, type=int)
 parser.add_argument('--exp', help='Max experiences', required=False, type=int, default = 2e6)
 parser.add_argument('--run', help='Run Number', required=True, type=int, default = 0)
-parser.add_argument('--dir', help='Result directory', required=False, type=str, default = './results/')
+parser.add_argument('--dir', help='Result directory', required=False, type=str, default = './_results/')
 #model '0' or '' weakly Dependent Individualist 
 #model '1' strongly Dependent Individualist I 
 #model '2' strongly Dependent Individualist II 
