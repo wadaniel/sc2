@@ -1,7 +1,7 @@
 # Test
 for env in 5m_vs_6m 10m_vs_11m 
 do 
-    for model in {3..4}
+    for model in {0..0}
     do
         for run in 0
         do

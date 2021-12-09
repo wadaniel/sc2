@@ -33,7 +33,7 @@ cat > run.sbatch <<EOF
 
 export OMP_NUM_THREADS=\$SLURM_CPUS_PER_TASK
 python3 run-dvracer-rnn.py --env "$ENV" --model "$MODEL" --run $RUN --ts 50
-python3 korali.rlview --dir ./_results/ --out dvracer.png
+python3 -m korali.rlview --dir ./_results/ --out dvracer.png
 python3 readRewardHist.py -fn ./_results/testingRewardHistory.npz -pte 20
 EOF
 
