@@ -1,5 +1,7 @@
 import argparse
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 ####### Parsing arguments
 
@@ -32,14 +34,3 @@ fig, ax = plt.subplots()
 ax.plot(winProb, linewidth=2.0)
 ax.set_ylim(0., 1.)
 fig.savefig("winProbabilities.png")
-
-#winRate = np.mean(rewardHistory, axis=1)
-#winSdev = np.std(rewardHistory, axis=1)
-#print(sampleHistory)
-#print(winHistory)
-#print(winRate)
- 
-
-
-
-

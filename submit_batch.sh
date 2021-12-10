@@ -3,13 +3,13 @@ for env in 5m_vs_6m 10m_vs_11m
 do 
     for model in {0..0}
     do
-        for run in 0
+        for run in 1
         do
             export ENV=$env
             export MODEL=$model
             export RUN=$run
-            ./sbatch-dvracer-smac.sh
-            #./sbatch-dvracer-rnn-smac.sh
+            #./sbatch-dvracer-smac.sh
+            ./sbatch-dvracer-rnn-smac.sh
         done
     done
 done
